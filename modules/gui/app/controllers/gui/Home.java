@@ -22,6 +22,7 @@ import play.mvc.Result;
 import services.gui.BreadcrumbsService;
 import services.gui.JatosGuiExceptionThrower;
 import services.gui.UserService;
+import services.gui.mturk.Test;
 import utils.common.HttpUtils;
 import utils.common.IOUtils;
 import utils.common.JsonUtils;
@@ -45,17 +46,20 @@ public class Home extends Controller {
 	private final UserService userService;
 	private final BreadcrumbsService breadcrumbsService;
 	private final StudyDao studyDao;
+	private final Test test;
 
 	@Inject
 	Home(IOUtils ioUtils, JatosGuiExceptionThrower jatosGuiExceptionThrower,
 			JsonUtils jsonUtils, UserService userService,
-			BreadcrumbsService breadcrumbsService, StudyDao studyDao) {
+			BreadcrumbsService breadcrumbsService, StudyDao studyDao,
+			Test test) {
 		this.ioUtils = ioUtils;
 		this.jatosGuiExceptionThrower = jatosGuiExceptionThrower;
 		this.jsonUtils = jsonUtils;
 		this.userService = userService;
 		this.breadcrumbsService = breadcrumbsService;
 		this.studyDao = studyDao;
+		this.test = test;
 	}
 
 	/**
@@ -67,6 +71,7 @@ public class Home extends Controller {
 		User loggedInUser = userService.retrieveLoggedInUser();
 		List<Study> studyList = studyDao.findAllByUser(loggedInUser);
 		String breadcrumbs = breadcrumbsService.generateForHome();
+		test.call();
 		return status(httpStatus, views.html.gui.home.render(studyList,
 				loggedInUser, breadcrumbs, HttpUtils.isLocalhost()));
 	}
