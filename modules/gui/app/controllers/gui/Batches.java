@@ -85,7 +85,7 @@ public class Batches extends Controller {
 	}
 
 	/**
-	 * GET request to get the runManager page
+	 * GET request to get the Batch Manager page
 	 */
 	@Transactional
 	public Result batchManager(Long studyId) throws JatosGuiException {
@@ -127,9 +127,7 @@ public class Batches extends Controller {
 	}
 
 	/**
-	 * Ajax POST request to submit created Batch
-	 * 
-	 * @throws JatosGuiException
+	 * Ajax POST request to submit the a Batch creation request
 	 */
 	@Transactional
 	public Result submitCreated(Long studyId) throws JatosGuiException {
@@ -157,8 +155,6 @@ public class Batches extends Controller {
 
 	/**
 	 * Ajax GET request to get BatchProperties as JSON
-	 * 
-	 * @throws JatosGuiException
 	 */
 	@Transactional
 	public Result properties(Long studyId, Long batchId)
@@ -220,8 +216,6 @@ public class Batches extends Controller {
 	/**
 	 * Ajax POST request: Request to change the property 'active' of the given
 	 * batch.
-	 * 
-	 * @throws JatosGuiException
 	 */
 	@Transactional
 	public Result toggleActive(Long studyId, Long batchId, Boolean active)
